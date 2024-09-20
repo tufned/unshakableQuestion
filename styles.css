@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  font-family: "Comfortaa", cursive;
+  font-weight: 700;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+* button {
+  border: none;
+}
+
+.container .end-srceen, .container .title, .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  flex-direction: column;
+  height: 100vh;
+  background-color: #30313E;
+}
+.container .title {
+  flex-direction: column;
+  height: 30vh;
+  transition: 0.2s ease;
+}
+.container .title input {
+  outline: none;
+  font-size: 50px;
+  font-weight: 700;
+  color: #EF233C;
+  margin: 0 0 15px 0;
+  text-align: center;
+  background-color: inherit;
+  border: none;
+}
+.container .title .extra-text {
+  font-size: 20px;
+  color: #30313E;
+  transition: 0.4s ease;
+}
+.container .buttons-shell {
+  height: 70vh;
+  position: relative;
+}
+.container .buttons-shell .butt {
+  position: absolute;
+  top: 20%;
+  padding: 13px 25px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 25px;
+  color: #6f7887;
+  background-color: #EDF2F4;
+}
+.container .buttons-shell .yes-butt {
+  transition: 0.2s ease-out;
+  box-shadow: 0 0 30px 0 rgba(239, 36, 61, 0.3);
+  right: 0;
+}
+.container .buttons-shell .yes-butt:hover {
+  box-shadow: 0 0 50px 0 rgba(239, 36, 61, 0.6);
+  cursor: pointer;
+  color: #EDF2F4;
+  background-color: #EF233C;
+}
+.container .buttons-shell .no-butt {
+  transition: 0.2s ease;
+}
+.container .end-srceen {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: #30313E;
+  color: #EDF2F4;
+  font-size: 60px;
+  display: none;
+}
