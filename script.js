@@ -1,51 +1,65 @@
+const urlParams = new URLSearchParams(window.location.search);
+const urlQuestion = urlParams.get("question");
+
+const container = document.querySelector('.container');
 const yesButt = document.querySelector('.yes-butt');
 const noButt = document.querySelector('.no-butt');
 const extraText = document.querySelector('.extra-text');
-const endSrceen = document.querySelector('.end-srceen');
+const endScreen = document.querySelector('.end-screen');
+const questionInput = document.querySelector('.question-input');
+
+const defaultInputValue = 'Потанцюємо?';
+const secretKey = "qwerty1234";
 
 
-document.querySelector('input').value = 'Русні п*зда?';
+if (isMobile) renderMobileScreen();
+
+document.addEventListener('touchstart', (e) => {
+	e.preventDefault();
+	renderMobileScreen();
+})
 
 
+questionInput.value = urlQuestion ? decryptString(urlQuestion) : defaultInputValue;
 
-noButt.addEventListener('mouseenter', noButtMove);
+questionInput.addEventListener('change', (e) => {
+	const encrypted = encryptString(e.target.value);
+	setSearchParam(encrypted);
+});
 
-let value_y = 0;
-let value_x = 0;
+yesButt.addEventListener('click', () => endScreen.style.display = 'flex');
+noButt.addEventListener('click', () => location.reload());
+noButt.addEventListener('mouseenter', moveNoButt);
 
 let count = 0;
+const position = {
+	x: 0,
+	y: 0
+};
 
-function noButtMove() {
-    let newValue_x = randomNum(600, -700);
-    let newValue_y = randomNum(0, 300);
-        
-    if (newValue_y < 15 || newValue_y > 140 && newValue_x > 100 || newValue_x < -100) {
-        if (newValue_y > value_y + 100 || newValue_y < value_y - 100 || value_y == 0) value_y = newValue_y;
-        if (newValue_x > value_x + 150 || newValue_x < value_x - 150 || value_x == 0) value_x = newValue_x;
-    }
-    
-    if (value_y != newValue_y || value_x != newValue_x) noButtMove();
-    else count++;
+function moveNoButt() {
+	const newPosition = getRandomPosition();
 
-    noButt.style.top = `${value_y}px`;
-    noButt.style.right = `${value_x}px`;
+	if (newPosition.y < 15 || (newPosition.y > 140 && newPosition.x > 100) || newPosition.x < -100) {
+		if (newPosition.y > position.y + 100 || newPosition.y < position.y - 100 || position.y === 0) {
+			position.y = newPosition.y;
+		}
+		if (newPosition.x > position.x + 150 || newPosition.x < position.x - 150 || position.x === 0) {
+			position.x = newPosition.x;
+		}
+	}
 
+	if (position.y !== newPosition.y || position.x !== newPosition.x) moveNoButt();
+	else count++;
 
-    if (count > 15) {
-        extraText.style.color = '#EDF2F4';
-    }
+	noButt.style.top = `${position.y}px`;
+	noButt.style.right = `${position.x}px`;
+
+	if (count > 15) {
+		setTimeout(() => noButt.classList.add("butt--super-small"), 250);
+		yesButt.classList.add("yes-butt--only-option");
+	}
+	else if (count > 10) extraText.style.color = '#EDF2F4';
+	else if (count > 5) setTimeout(() => noButt.classList.add("butt--small"), 230);
+	else if (count > 2) yesButt.classList.add("yes-butt--hinted");
 }
-
-function randomNum(min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
-}
-
-
-
-yesButt.addEventListener('click', () => {
-    console.log(true);
-    endSrceen.style.display = 'flex';
-});
-noButt.addEventListener('click', () => {
-    location.reload();
-});

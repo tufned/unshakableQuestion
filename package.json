@@ -1,0 +1,15 @@
+{
+  "name": "unshakablequestion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Den Funderat <funderatdenis@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.2.0"
+  }
+}
